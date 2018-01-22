@@ -1,0 +1,62 @@
+<div class="section">
+  <h4>Edit Profile</h4>
+</div>
+
+{{#if message}}
+  <div class="red-text text-darken-2">{{message}}</div>
+{{/if}}
+<div class="row">
+  <div class="col s4">
+    <div class="grey profile-photo">
+      {{#if profile.img}}
+        <img src="{{profile.img}}" alt="your profile photo" height="200" width="200">
+      {{else}}
+        Profile Photo
+      {{/if}}
+    </div>
+  </div>
+
+
+  <form action="/profile?_method=put" method="post">
+    <div class="col s8">
+      <div class="input-field">
+        <label for="profile-name">Full Name</label>
+        <input disabled class="validate" type="text" name="name" id="profile-name" value="{{currentUser.local.name}}">
+      </div>
+      <div class="input-field">
+        <label for="profile-handle">Login Name</label>
+        <input disabled class="validate" type="text" name="handle" id="profile-handle" value="{{currentUser.local.handle}}">
+      </div>
+      <div class="input-field">
+        <label for="profile-email">Email</label>
+        <input disabled class="validate" type="text" name="email" id="profile-email" value="{{currentUser.local.email}}">
+      </div>
+    </div>
+
+    <div class="col s12">
+      <div class="input-field">
+        <label for="profile-img">User Photo URL</label>
+        <input class="validate" type="text" name="profile[img]" id="profile-img" value="{{profile.img}}">
+      </div>
+      <div class="input-field">
+        <label for="profile-addr">Address</label>
+        <input class="validate" type="text" name="profile[address]" id="profile-addr" value="{{profile.address}}">
+      </div>
+      <div class="input-field">
+        <label for="profile-phone">Phone</label>
+        <input class="validate" type="text" name="profile[phone]" id="profile-phone" value="{{profile.phone}}">
+      </div>
+      <!-- FIX IT eventually make into checkboxes -->
+      <div class="input-field">
+        <label for="profile-interests">Interests</label>
+        <input class="validate" type="text" name="profile[interests]" id="profile-interests" value="{{profile.interests}}">
+      </div>
+    </div>
+    <button class="btn waves-effect waves-light green darken-3 col" type="submit" name="action">Update
+    </button>
+  </form>
+  <form class="col s6" action="/profile?_method=delete" method="post">
+    <button class="btn waves-effect waves-light orange col" type="submit" name="action">Delete Account
+    </button>
+  </form>
+</div> <!--class="row"-->

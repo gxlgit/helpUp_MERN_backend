@@ -1,0 +1,28 @@
+<h2>Signup</h2>
+{{#if message}}
+  <div class="red-text text-darken-2">{{message}}</div>
+{{/if}}
+<form name="signup" method="post" action="/signup" onsubmit="return validateSignup()">
+  <div class="input-field">
+    <label for="name">Full Name</label>
+    <input class="validate" type="text" name="name" id="name">
+  </div>
+
+  <div class="input-field">
+    <label for="handle">Login Name</label>
+    <input class="validate" type="text" name="handle" id="handle">
+  </div>
+
+  <div class="input-field">
+    <label for="email">Email</label>
+    <input class="validate" type="text" name="email" id="email">
+  </div>
+
+  <div class="input-field">
+    <label for="password">Password</label>
+    <input class="validate" type="password" name="password" id="password">
+  </div>
+
+  <button class="btn waves-effect waves-light green darken-3" type="submit" name="action">Submit
+  </button>
+</form>

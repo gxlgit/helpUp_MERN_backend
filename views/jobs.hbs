@@ -1,0 +1,62 @@
+<body onload="initialize()">
+<div class = "section">
+<h1>Ready to Make a Difference {{currentUser.local.name}}?</h1>
+<h4 class="blue-grey-text">Current <span class="brand-logo green-text text-darken-3">helpUps</span></h4>
+
+<!-- <div class="container"> -->
+{{#each jobs as |job index|}}
+<!-- FIX IT make unorderd list -->
+  <h3>
+    <a href="/jobs/{{job.name}}">{{job.name}}</a>
+  </h3>
+  <div>
+    {{job.description}}
+  </div>
+{{/each}}
+</div>
+
+<div class="container card-panel yellow lighten-4">
+      <form name= 'job' action="/jobs/{{job.name}}" method="post" onsubmit="return validateCreateJob()">
+        <h4>Add New <span class="brand-logo green-text text-darken-3">helpUp</span></h4>
+        <div class="input-field hide">
+          <label for="job-name">Creator</label>
+          <input class='validate' type="text" name="job[creator]" id="job-creator" value={{currentUser.local.email}}>
+        </div>
+
+        <div class="input-field">
+          <label for="job-name">Title</label>
+          <input class='validate' type="text" name="job[name]"  id="job-name">
+        </div>
+        <div class="input-field">
+          <label for="job-description">Description</label>
+          <input class='validate' type="text" name="job[description]" id="job-description">
+        </div>
+
+        <div class="input-field">
+          <label for="job-date">Date</label>
+          <input type="text" class="datepicker" name="job[date]" id="job-date">
+          <!-- <input class='validate' type="date" name="job[date]" id="job-date" max="2020-12-31"> -->
+        </div>
+        <div class="input-field">
+          <label for="job-time">Start Time</label>
+          <input type="text" class="timepicker" name="job[time]" id="job-time">
+          <!-- <input class='validate' type="time" name="job[time]" id="job-time"> -->
+        </div>
+        <div class="input-field">
+          <label for="job-location">Location</label>
+          <div id="job-map"></div>
+          <div>
+            <input id="job-location" type="textbox" name="job[location]" value="Washington, DC">
+            <input type="button" value="Find" onclick="codeAddress()">
+          </div>
+          <!-- <input class='validate' type="text" name="job[location]" id="job-location"> -->
+        </div>
+        <div class="input-field">
+          <label for="job-img">User Photo URL</label>
+          <input type="text" name="job[img]" id="job-img">
+        </div>
+        <button class="btn waves-effect waves-light green darken-3" type="submit" name="action">Submit
+        </button>
+      </form>
+<!-- </div> -->
+</body>
