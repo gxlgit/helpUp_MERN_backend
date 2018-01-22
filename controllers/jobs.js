@@ -1,13 +1,13 @@
 const Jobs = require('../models/job')
 
 function getJobs(request, response) {
-	Router.get( '/', (request, response) => {
-	    Gif.find({})
-	       .then( (gifs) => response.json(gifs) )
-	})
-
+	// Router.get( '/', (request, response) => {
+	//     Gif.find({})
+	//        .then( (gifs) => response.json(gifs) )
+	// })
+	console.log('getJobs')
 	Jobs.Job.find({})
-		.then( jobsData => { response.json(jobsData)})
+		.then( (jobsData) => { response.json(jobsData)})
 		// (jobsData => {
 		// 	response.render('jobs.hbs', {
 		// 		jobs: jobsData
@@ -27,6 +27,7 @@ function showJob(request, response) {
 																	.catch(err => {
 																		console.log(err)
 																	})
+		}
 		//if the current User created the job, allow them to edit/delete
 		//REACT FIX!!!!!
 		// if (request.user.local.email === job.creator) {
@@ -58,9 +59,14 @@ function showJob(request, response) {
 // }
 
 function addJob(request, response) {
-	Jobs.Job.create(request.body.job).then(job => {
+	console.log('add job')
+	console.log(request.body.jobs)
+	Jobs.Job.create(request.body.jobs).then(job => {
 		response.json(job)
 		// response.redirect('/jobs')
+	})
+	.catch(err => {
+		console.log(err)
 	})
 }
 
@@ -82,13 +88,17 @@ function removeJob(request, response) {
 	})
 }
 
-function removeJobsByCreator(request, response, next) {
-	console.log('removejobs')
-	Jobs.Job.remove({ creator: request.user.local.email }, err => {
-		if (err) console.log(handleError(err))
-		else return next()
-	})
+function removeJobsByCreator(request, response){
+	Jobs.Job.remove({ creator: request.user.local.email })
+					.then( (job) => { response.json(job)})
 }
+//function removeJobsByCreator(request, response, next) {
+// 	console.log('removejobs')
+// 	Jobs.Job.remove({ creator: request.user.local.email }, err => {
+// 		if (err) console.log(handleError(err))
+// 		else return next()
+// 	})
+// }
 
 function removeVolunteer(request, response) {
 	let name = request.params.name
@@ -104,7 +114,8 @@ function removeVolunteer(request, response) {
 		}
 	).then(job => {
 		console.log('REMOVED ITEM: ' + job)
-		response.redirect(`/jobs/${job.name}`)
+		response.json(job)
+	//	response.redirect(`/jobs/${job.name}`)
 	})
 }
 
@@ -124,7 +135,8 @@ function addVolunteer(request, response) {
 		}
 	).then(job => {
 		console.log('ADDED Volunteer: ' + job)
-		response.redirect(`/jobs/${job.name}`)
+		response.json(job)
+		//response.redirect(`/jobs/${job.name}`)
 	})
 }
 

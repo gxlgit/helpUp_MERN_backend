@@ -1,9 +1,9 @@
-const User = require('../models/user') 
+const User = require('../models/user')
 
 // Read's user's profile
 function getProfile(request, response) {
 	User.findOne({ 'local.email': request.user.local.email })
-		.then(user => {
+		.then( user => {
 			response.render('profile_person.hbs', {
 				profile: user.local.profile
 			})
