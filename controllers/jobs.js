@@ -62,8 +62,8 @@ function addJob(request, response) {
 	console.log('add job')
 	console.log(request.body)
 	Jobs.Job.create(request.body).then(job => {
-		//response.json(job)
-		response.json(request.body)
+		response.json(job)
+		//response.json(request.body)
 		console.log();
 		// response.redirect('/jobs')
 	})
